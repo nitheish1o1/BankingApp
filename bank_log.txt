@@ -1,4 +1,0 @@
-direct withdraw RS: 1000
-direct withdraw RS: 1
-direct withdraw RS: 1
-received from *** RS: 199
