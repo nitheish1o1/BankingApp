@@ -9,6 +9,7 @@ public class Displaybal extends HttpServlet {
         PrintWriter out = response.getWriter(); 
         HttpSession session = request.getSession();
         String name = (String)session.getAttribute("userid");
+        
         try{
             String url = "jdbc:mysql://localhost:3306/users";
             String sqlname = "root";
@@ -18,9 +19,12 @@ public class Displaybal extends HttpServlet {
             Statement stmt = con.createStatement();
             String sql1 = ("SELECT  balance " + "FROM userreg" + " WHERE name = '"+name+"'");
             ResultSet rs = stmt.executeQuery(sql1);
+            String balance = "";
             while(rs.next()){
-                out.println("Account Balance: " + rs.getInt("balance"));
+                balance = ("Account Balance: Rs:  " + rs.getInt("balance")+ "/-");
             }
+            request.setAttribute("accbalance",balance);
+            request.getRequestDispatcher("displaybalance.jsp").forward(request,response);
         }catch (Exception e2) {out.println(e2);}
     }
 }        

@@ -15,7 +15,7 @@ public class Login extends HttpServlet {
         
         if(name == "" || pass == ""){
             out.print("<h3>userid/password should not be empty, please try again</h3>");
-            request.getRequestDispatcher("index.html").include(request, response);
+            request.getRequestDispatcher("index.jsp").include(request, response);
         }
         else{
           
@@ -32,16 +32,19 @@ public class Login extends HttpServlet {
                 ps.setString(2,pass);   
           
                 ResultSet rs = ps.executeQuery(); 
+                HttpSession session = request.getSession();
+
+
  
                 if(rs.next() == true) {
-                    HttpSession session = request.getSession();
+                    
                     session.setAttribute("userid", name);
-                    out.print("You are successfully loged in.....");
-                    request.getRequestDispatcher("home.html").forward(request,response);
+                    session.setAttribute("passw",pass);
+                    request.getRequestDispatcher("home.jsp").forward(request,response);
                 }  
                 else{ 
                     out.print("<h3>Incorrect userid/pass</h3>");
-                    request.getRequestDispatcher("index.html").include(request, response);
+                    request.getRequestDispatcher("index.jsp").include(request, response);
                 
 
                 }
