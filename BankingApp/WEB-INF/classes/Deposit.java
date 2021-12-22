@@ -23,6 +23,7 @@ public class Deposit extends HttpServlet {
             String sql1 = ("SELECT  balance " + "FROM userreg" + " WHERE name = '"+name+"'");
             ResultSet rs = stmt.executeQuery(sql1);
             int acc_balance = 0;
+            String ddetail; 
             while(rs.next()){
                 acc_balance =  rs.getInt("balance");
             }
@@ -33,12 +34,12 @@ public class Deposit extends HttpServlet {
             ps.executeUpdate();
             
             ps = con.prepareStatement("insert into "+ name + " (txdate,txtype,txamount)"+"values(current_timestamp(),'deposit',?)"); 
-            ps.setInt(1, final_amount);
+            ps.setInt(1, deposit_amount);
             ps.executeUpdate();
             out.println("Rs:"+deposit_amount+" deposited successfully:)");
-            out.println("<br/>");
-            out.print("your acc balance is Rs:"+final_amount);
-            request.getRequestDispatcher("home.html").include(request,response);
+            ddetail = ("Rs:"+deposit_amount+" deposited successfullya:)\n your acc balance is Rs:"+final_amount);
+            request.setAttribute("d_data",ddetail);
+            request.getRequestDispatcher("deposit.jsp").forward(request,response);
         }catch (Exception e2) {out.println(e2);}
     }
 }  

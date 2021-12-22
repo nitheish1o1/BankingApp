@@ -32,6 +32,10 @@
     <servlet-name>Logout</servlet-name>
     <servlet-class>Logout</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Homebutton</servlet-name>
+    <servlet-class>Homebutton</servlet-class>
+  </servlet>
 
 
 
@@ -67,8 +71,12 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Homebutton</servlet-name>
+    <url-pattern>/homebutton</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   
 </web-app>

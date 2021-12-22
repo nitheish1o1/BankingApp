@@ -23,6 +23,7 @@ public class Withdraw extends HttpServlet {
             String sql1 = ("SELECT  balance " + "FROM userreg" + " WHERE name = '"+name+"'");
             ResultSet rs = stmt.executeQuery(sql1);
             int acc_balance = 0;
+            String wdetail;
             while(rs.next()){
                 acc_balance =  rs.getInt("balance");
             }
@@ -33,16 +34,16 @@ public class Withdraw extends HttpServlet {
                 ps.setString(2,name); 
                 ps.executeUpdate();
                 ps = con.prepareStatement("insert into "+ name + " (txdate,txtype,txamount)"+"values(current_timestamp(),'withdraw',?)"); 
-                ps.setInt(1, final_amount);
+                ps.setInt(1, withdraw_amount);
                 ps.executeUpdate();
-                out.println("Rs:"+withdraw_amount+" withdrawn successfully");
-                out.println("<br/>");
-                out.print("your acc balance is Rs:"+final_amount);
+                wdetail = ("Rs:"+withdraw_amount+" withdrawn successfullya:)\nyour acc balance is Rs:"+final_amount);
+
             }
             else{
-                out.println("insufficent funds");
+                wdetail = ("insufficent funds");
             }
-            request.getRequestDispatcher("home.html").include(request,response);
+            request.setAttribute("w_data",wdetail);
+            request.getRequestDispatcher("withdraw.jsp").forward(request,response);
         }catch (Exception e2) {out.println(e2);}
     }
 }        

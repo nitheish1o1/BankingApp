@@ -37,7 +37,7 @@ public class Initialdepo extends HttpServlet {
             ps = con.prepareStatement("insert into "+ name + " (txdate,txtype,txamount)"+"values(current_timestamp(),'deposit',?)"); 
             ps.setInt(1, initialamount);
             ps.executeUpdate();
-            request.getRequestDispatcher("home.html").forward(request,response);
+            request.getRequestDispatcher("home.jsp").forward(request,response);
 
         }catch (Exception e2) {out.println(e2);}
 
